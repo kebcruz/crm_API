@@ -98,6 +98,11 @@ class Cliente extends \yii\db\ActiveRecord
         return[
             "domicilioNombre" =>function(){
                 return $this->cliFkdom->dom_calle;
+            },
+            "municipioNombre" => function () {
+            return $this->cliFkdom && $this->cliFkdom->domFkmun
+                ? $this->cliFkdom->domFkmun->mun_nombre
+                :null;
             }
         ];
     }
