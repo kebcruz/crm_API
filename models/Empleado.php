@@ -120,4 +120,23 @@ class Empleado extends \yii\db\ActiveRecord
         return $this->hasMany(Venta::class, ['ven_fkemp_id' => 'emp_id']);
     }
 
+    public function extraFields()
+    {
+        return[
+            "archivoRuta" =>function(){
+                return $this->empFkarc->arc_ruta;
+            },
+            "domicilioNombre" =>function(){
+                return $this->empFkdom->dom_calle;
+            },
+            "municipioNombre" => function () {
+            return $this->empFkdom && $this->empFkdom->domFkmun
+                ? $this->empFkdom->domFkmun->mun_nombre
+                :null;
+            },
+            "puestoNombre" =>function(){
+                return $this->empFkpuesto->pue_nombre;
+            }
+        ];
+    }
 }

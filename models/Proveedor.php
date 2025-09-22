@@ -96,4 +96,21 @@ class Proveedor extends \yii\db\ActiveRecord
         return $this->hasOne(Estatu::class, ['est_id' => 'prov_fkest_id']);
     }
 
+    public function extraFields()
+    {
+        return[
+            "domicilioNombre" =>function(){
+                return $this->provFkdom->dom_calle;
+            },
+            "municipioNombre" => function () {
+            return $this->provFkdom && $this->provFkdom->domFkmun
+                ? $this->provFkdom->domFkmun->mun_nombre
+                :null;
+            },
+            "estatuNombre" =>function(){
+                return $this->provFkest->est_nombre;
+            }
+        ];
+    }
+
 }
