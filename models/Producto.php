@@ -156,4 +156,15 @@ class Producto extends \yii\db\ActiveRecord
         return $this->hasMany(VentaDetalle::class, ['ved_fkpro_id' => 'pro_id']);
     }
 
+    public function extraFields()
+    {
+        return[
+            "archivoRuta" =>function(){
+                return $this->proFkarc->arc_ruta;
+            },
+            "categoriaNombre" =>function(){
+                return $this->proFkcat->cat_nombre;
+            },
+        ];
+    }
 }

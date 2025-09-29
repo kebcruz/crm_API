@@ -102,4 +102,20 @@ class Venta extends \yii\db\ActiveRecord
         return $this->hasMany(VentaDetalle::class, ['ved_fkven_id' => 'ven_id']);
     }
 
+    public function extraFields()
+    {
+        return[
+            "ventaDetalle" =>function(){
+                $detalles = $this->VentaDetalles;
+                var_dump($detalles);
+                die;
+
+                $info=[];
+                foreach ($detalles as $key => $value) {
+                return 1;
+                }
+            },
+        ];
+    }
+
 }
