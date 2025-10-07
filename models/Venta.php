@@ -105,16 +105,13 @@ class Venta extends \yii\db\ActiveRecord
     public function extraFields()
     {
         return[
-            "ventaDetalle" =>function(){
-                $detalles = $this->VentaDetalles;
-                var_dump($detalles);
-                die;
-
-                $info=[];
-                foreach ($detalles as $key => $value) {
-                return 1;
-                }
+            "clienteNombre" =>function(){
+                return $this->venFkcli->cli_nombre;
             },
+            "empleadoNombre" =>function(){
+                return $this->venFkemp->emp_nombre;
+            },
+            'ventaDetalles',
         ];
     }
 
