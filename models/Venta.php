@@ -111,6 +111,9 @@ class Venta extends \yii\db\ActiveRecord
             "empleadoNombre" =>function(){
                 return $this->venFkemp->emp_nombre;
             },
+             "pagoReferencia" =>function(){
+                return $this->venFkpag->pag_referencia;
+            },
             'ventaDetalles',
         ];
     }
