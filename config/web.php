@@ -51,7 +51,20 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'empleado'],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'empleados/buscar/<text:.*>', 'route' => 'empleado/buscar'],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'empleados/total/<text:.*>', 'route' => 'empleado/total'],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'empleado',
+                    'tokens' => [
+                        '{id}'   => '<id:\\d[\\d,]*>',
+                        '{text}' => '<text:\\w+>'
+                    ],
+                    'extraPatterns' => [
+                        'GET buscar/{text}' => 'buscar',
+                        'GET total/{text}'  => 'total'
+                    ],
+                ],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'puesto'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'pais'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'estado'],
