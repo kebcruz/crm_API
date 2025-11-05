@@ -1,12 +1,15 @@
 <?php
 namespace app\controllers;
 
+use Yii;
 use yii\filters\Cors;
 use app\models\Empleado;
 use yii\rest\ActiveController;
 use yii\data\ActiveDataProvider;
 use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpBearerAuth;
+use webvimark\modules\UserManagement\models\User;
+use webvimark\modules\UserManagement\models\forms\LoginForm;
 
 class EmpleadoController extends ActiveController
 {
@@ -33,7 +36,7 @@ class EmpleadoController extends ActiveController
             'authMethods' => [
                 HttpBearerAuth::className(),
             ],
-            'except' => ['index', 'view', 'total', 'buscar']
+            'except' => ['index', 'view', 'total', 'buscar', 'login']
         ];
 
         return $behaviors;
@@ -58,5 +61,14 @@ class EmpleadoController extends ActiveController
         ]);
 
         return $empleados->getModels();
+    }
+    public function actionLogin() {
+    $token = '';
+    $model = new LoginForm();
+    $model->load(Yii::$app->getRequest()->getBodyParams(), '');
+    if($model->login()) {
+        $token = User::findOne(['username' => $model->username])->auth_key;
+    }
+    return $token;
     }
 }

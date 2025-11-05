@@ -165,6 +165,15 @@ class Producto extends \yii\db\ActiveRecord
             "categoriaNombre" =>function(){
                 return $this->proFkcat->cat_nombre;
             },
+            "proveedorNombre" =>function(){
+                return $this->proFkproveedor->prov_nombre;
+            },
+            "colorNombre" =>function(){
+                return $this->proFkcol->col_nombre;
+            },
+            "estatuNombre" =>function(){
+                return $this->proFkest->est_nombre;
+            },
         ];
     }
 }
