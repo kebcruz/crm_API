@@ -50,13 +50,13 @@ class ProductoController extends ActiveController
     {
         $consulta = Producto::find()->where(['like', new \yii\db\Expression("CONCAT(pro_nombre)"), $text]);
 
-        $empleados = new ActiveDataProvider([
+        $productos = new ActiveDataProvider([
             'query' => $consulta,
             'pagination' => [
                 'pageSize' => 20 // Número de resultados por página
             ],
         ]);
 
-        return $empleados->getModels();
+        return $productos->getModels();
     }
 }

@@ -95,6 +95,21 @@ $config = [
                         'GET lista-permisos/{rol}' => 'lista-permisos/{rol}'
                     ],
                 ],
+
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'ventas/buscar/<text:.*>', 'route' => 'venta/buscar'],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'ventas/total/<text:.*>', 'route' => 'venta/total'],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'venta',
+                    'tokens' => [
+                        '{id}'   => '<id:\\d[\\d,]*>',
+                        '{text}' => '<text:\\w+>'
+                    ],
+                    'extraPatterns' => [
+                        'GET buscar/{text}' => 'buscar',
+                        'GET total/{text}'  => 'total'
+                    ],
+                ],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'puesto'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'pais'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'estado'],
@@ -110,7 +125,6 @@ $config = [
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'municipio'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'pago'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'proveedor'],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'venta'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'venta-detalle'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'cliente-etiqueta'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'producto-etiqueta'],
