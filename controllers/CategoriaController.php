@@ -1,8 +1,11 @@
 <?php
+
 namespace app\controllers;
 
 use yii\filters\Cors;
+use app\models\Categoria;
 use yii\rest\ActiveController;
+use yii\data\ActiveDataProvider;
 use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpBearerAuth;
 
@@ -18,7 +21,7 @@ class CategoriaController extends ActiveController
         $behaviors['corsFilter'] = [
             'class' => \yii\filters\Cors::className(),
             'cors' => [
-                'Origin'                           => ['http://localhost:8100','http://localhost:8101'],
+                'Origin'                           => ['http://localhost:8100', 'http://localhost:8101'],
                 'Access-Control-Request-Method'    => ['GET', 'POST', 'PUT', 'DELETE'],
                 'Access-Control-Request-Headers'   => ['*'],
                 'Access-Control-Allow-Credentials' => true,
@@ -31,9 +34,33 @@ class CategoriaController extends ActiveController
             'authMethods' => [
                 HttpBearerAuth::className(),
             ],
-            'except' => ['index', 'view']
+            'except' => ['index', 'view', 'total', 'buscar']
         ];
 
         return $behaviors;
+    }
+
+    public function actionTotal($text = "")
+    {
+        $total = Categoria::find();
+        if ($text != '') {
+            /* like sirve para buscar texto, con lo cual texto buscara en los tres primeros campos */
+            $total = $total->where(['like', new \yii\db\Expression("CONCAT(cat_nombre, ' ', cat_descripcion)"), $text]);
+        }
+        $total = $total->count();
+        return $total;
+    }
+
+    public function actionBuscar($text = "")
+    {
+        $consulta = Categoria::find()->where(['like', new \yii\db\Expression("CONCAT(cat_nombre, ' ', cat_descripcion)"), $text]);
+
+        $categorias = new ActiveDataProvider([
+            'query' => $consulta,
+            'pagination' => [
+                'pageSize' => 20 // Número de resultados por página
+            ],
+        ]);
+        return $categorias->getModels();
     }
 }

@@ -81,6 +81,21 @@ $config = [
                     ],
                 ],
                 
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'categorias/buscar/<text:.*>', 'route' => 'categoria/buscar'],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'categorias/total/<text:.*>', 'route' => 'categoria/total'],
+                [
+                    'class'      => 'yii\rest\UrlRule',
+                    'controller' => 'categoria',
+                    'tokens' => [
+                        '{id}'   => '<id:\\d[\\d,]*>',
+                        '{text}' => '<text:\\w+>'
+                    ],
+                    'extraPatterns' => [
+                        'GET buscar/{text}' => 'buscar',
+                        'GET total/{text}'  => 'total',
+                    ],
+                ],
+
                 ['class' => 'yii\web\UrlRule', 'pattern' => 'empleados/buscar/<text:.*>', 'route' => 'empleado/buscar'],
                 ['class' => 'yii\web\UrlRule', 'pattern' => 'empleados/total/<text:.*>', 'route' => 'empleado/total'],
                 [
