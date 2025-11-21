@@ -51,6 +51,36 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'permisos/user/<text:.*>', 'route' => 'permiso/user'],
+                [
+                    'class'      => 'yii\rest\UrlRule',
+                    'controller' => 'permiso',
+                    'tokens' => [
+                        '{id}'  => '<id:\\d[\\d,]*>',
+                        '{rol}' => '<rol:\\w+>'
+                    ],
+                    'extraPatterns' => [
+                        'GET lista-permisos/{rol}' => 'lista-permisos/{rol}'
+                    ],
+                ],
+
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'archivos/upload/<text:.*>', 'route' => 'archivo/upload'],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'archivos/buscar/<text:.*>', 'route' => 'archivo/buscar'],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'archivos/total/<text:.*>', 'route' => 'archivo/total'],
+                [
+                    'class'      => 'yii\rest\UrlRule',
+                    'controller' => 'archivo',
+                    'tokens' => [
+                        '{id}'   => '<id:\\d[\\d,]*>',
+                        '{text}' => '<text:\\w+>'
+                    ],
+                    'extraPatterns' => [
+                        'GET buscar/{text}' => 'buscar',
+                        'GET total/{text}'  => 'total',
+                        'POST upload' => 'upload',
+                    ],
+                ],
+                
                 ['class' => 'yii\web\UrlRule', 'pattern' => 'empleados/buscar/<text:.*>', 'route' => 'empleado/buscar'],
                 ['class' => 'yii\web\UrlRule', 'pattern' => 'empleados/total/<text:.*>', 'route' => 'empleado/total'],
                 [
@@ -80,19 +110,6 @@ $config = [
                     'extraPatterns' => [
                         'GET buscar/{text}' => 'buscar',
                         'GET total/{text}'  => 'total'
-                    ],
-                ],
-
-                ['class' => 'yii\web\UrlRule', 'pattern' => 'permisos/user/<text:.*>', 'route' => 'permiso/user'],
-                [
-                    'class'      => 'yii\rest\UrlRule',
-                    'controller' => 'permiso',
-                    'tokens' => [
-                        '{id}'  => '<id:\\d[\\d,]*>',
-                        '{rol}' => '<rol:\\w+>'
-                    ],
-                    'extraPatterns' => [
-                        'GET lista-permisos/{rol}' => 'lista-permisos/{rol}'
                     ],
                 ],
 
