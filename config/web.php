@@ -142,12 +142,43 @@ $config = [
                         'GET total/{text}'  => 'total'
                     ],
                 ],
+
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'puesto'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'pais'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'estado'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'archivo'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'categoria'],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'cliente'],
+
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'clientes/buscar/<text:.*>', 'route' => 'cliente/buscar'],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'clientes/total/<text:.*>', 'route' => 'cliente/total'],
+                [
+                    'class'      => 'yii\rest\UrlRule',
+                    'controller' => 'cliente',
+                    'tokens' => [
+                        '{id}'   => '<id:\\d[\\d,]*>',
+                        '{text}' => '<text:\\w+>'
+                    ],
+                    'extraPatterns' => [
+                        'GET buscar/{text}' => 'buscar',
+                        'GET total/{text}'  => 'total',
+                    ],
+                ],
+
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'cliente-etiquetas/buscar/<text:.*>', 'route' => 'cliente-etiqueta/buscar'],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'cliente-etiquetas/total/<text:.*>', 'route' => 'cliente-etiqueta/total'],
+                [
+                    'class'      => 'yii\rest\UrlRule',
+                    'controller' => 'cliente-etiqueta',
+                    'tokens' => [
+                        '{id}'   => '<id:\\d[\\d,]*>',
+                        '{text}' => '<text:\\w+>'
+                    ],
+                    'extraPatterns' => [
+                        'GET buscar/{text}' => 'buscar',
+                        'GET total/{text}'  => 'total',
+                    ],
+                ],
+                
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'color'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'devolucion'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'domicilio'],
@@ -158,7 +189,7 @@ $config = [
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'pago'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'proveedor'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'venta-detalle'],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'cliente-etiqueta'],
+
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'producto-etiqueta'],
             ],
         ],
