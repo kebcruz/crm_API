@@ -223,6 +223,21 @@ $config = [
                     ],
                 ],
 
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'proveedors/buscar/<text:.*>', 'route' => 'proveedor/buscar'],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'proveedors/total/<text:.*>', 'route' => 'proveedor/total'],
+                [
+                    'class'      => 'yii\rest\UrlRule',
+                    'controller' => 'proveedor',
+                    'tokens' => [
+                        '{id}'   => '<id:\\d[\\d,]*>',
+                        '{text}' => '<text:\\w+>'
+                    ],
+                    'extraPatterns' => [
+                        'GET buscar/{text}' => 'buscar',
+                        'GET total/{text}'  => 'total',
+                    ],
+                ],
+
                 ['class' => 'yii\web\UrlRule', 'pattern' => 'domicilios/buscar/<text:.*>', 'route' => 'domicilio/buscar'],
                 ['class' => 'yii\web\UrlRule', 'pattern' => 'domicilios/total/<text:.*>', 'route' => 'domicilio/total'],
                 [
@@ -237,12 +252,12 @@ $config = [
                         'GET total/{text}'  => 'total',
                     ],
                 ],
+
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'estatu'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'etiqueta'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'metodo'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'municipio'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'pago'],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'proveedor'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'venta-detalle'],
 
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'producto-etiqueta'],

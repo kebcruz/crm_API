@@ -2,7 +2,9 @@
 namespace app\controllers;
 
 use yii\filters\Cors;
+use app\models\Proveedor;
 use yii\rest\ActiveController;
+use yii\data\ActiveDataProvider;
 use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpBearerAuth;
 
@@ -31,9 +33,30 @@ class ProveedorController extends ActiveController
             'authMethods' => [
                 HttpBearerAuth::className(),
             ],
-            'except' => ['index', 'view']
+            'except' => ['index', 'view', 'total', 'buscar']
         ];
 
         return $behaviors;
+    }
+    public function actionTotal($text="") {
+        $total = Proveedor::find();
+        if($text != '') {
+            $total = $total->where(['like', new \yii\db\Expression("CONCAT(pro_nombre)"), $text]);
+        }
+        $total = $total->count();
+        return $total;
+    }
+    public function actionBuscar($text="")
+    {
+        $consulta = Proveedor::find()->where(['like', new \yii\db\Expression("CONCAT(pro_nombre)"), $text]);
+
+        $productos = new ActiveDataProvider([
+            'query' => $consulta,
+            'pagination' => [
+                'pageSize' => 20 // Número de resultados por página
+            ],
+        ]);
+
+        return $productos->getModels();
     }
 }
