@@ -145,7 +145,21 @@ $config = [
 
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'puesto'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'pais'],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'estado'],
+                
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'estados/buscar/<text:.*>', 'route' => 'estado/buscar'],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'estados/total/<text:.*>', 'route' => 'estado/total'],
+                [
+                    'class'      => 'yii\rest\UrlRule',
+                    'controller' => 'estado',
+                    'tokens' => [
+                        '{id}'   => '<id:\\d[\\d,]*>',
+                        '{text}' => '<text:\\w+>'
+                    ],
+                    'extraPatterns' => [
+                        'GET buscar/{text}' => 'buscar',
+                        'GET total/{text}'  => 'total',
+                    ],
+                ],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'archivo'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'categoria'],
 
@@ -178,10 +192,51 @@ $config = [
                         'GET total/{text}'  => 'total',
                     ],
                 ],
-                
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'color'],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'devolucion'],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'domicilio'],
+
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'colors/buscar/<text:.*>', 'route' => 'color/buscar'],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'colors/total/<text:.*>', 'route' => 'color/total'],
+                [
+                    'class'      => 'yii\rest\UrlRule',
+                    'controller' => 'color',
+                    'tokens' => [
+                        '{id}'   => '<id:\\d[\\d,]*>',
+                        '{text}' => '<text:\\w+>'
+                    ],
+                    'extraPatterns' => [
+                        'GET buscar/{text}' => 'buscar',
+                        'GET total/{text}'  => 'total',
+                    ],
+                ],
+
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'devolucions/buscar/<text:.*>', 'route' => 'devolucion/buscar'],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'devolucions/total/<text:.*>', 'route' => 'devolucion/total'],
+                [
+                    'class'      => 'yii\rest\UrlRule',
+                    'controller' => 'devolucion',
+                    'tokens' => [
+                        '{id}'   => '<id:\\d[\\d,]*>',
+                        '{text}' => '<text:\\w+>'
+                    ],
+                    'extraPatterns' => [
+                        'GET buscar/{text}' => 'buscar',
+                        'GET total/{text}'  => 'total',
+                    ],
+                ],
+
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'domicilios/buscar/<text:.*>', 'route' => 'domicilio/buscar'],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'domicilios/total/<text:.*>', 'route' => 'domicilio/total'],
+                [
+                    'class'      => 'yii\rest\UrlRule',
+                    'controller' => 'domicilio',
+                    'tokens' => [
+                        '{id}'   => '<id:\\d[\\d,]*>',
+                        '{text}' => '<text:\\w+>'
+                    ],
+                    'extraPatterns' => [
+                        'GET buscar/{text}' => 'buscar',
+                        'GET total/{text}'  => 'total',
+                    ],
+                ],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'estatu'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'etiqueta'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'metodo'],

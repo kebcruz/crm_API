@@ -2,7 +2,9 @@
 namespace app\controllers;
 
 use yii\filters\Cors;
+use app\models\Devolucion;
 use yii\rest\ActiveController;
+use yii\data\ActiveDataProvider;
 use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpBearerAuth;
 
@@ -31,9 +33,34 @@ class DevolucionController extends ActiveController
             'authMethods' => [
                 HttpBearerAuth::className(),
             ],
-            'except' => ['index', 'view']
+            'except' => ['index', 'view', 'total', 'buscar']
         ];
 
         return $behaviors;
     }
+
+    public function actionTotal($text = "")
+    {
+        $total = Devolucion::find();
+        if ($text != '') {
+            /* like sirve para buscar texto, con lo cual texto buscara en los tres primeros campos */
+            $total = $total->where(['like', new \yii\db\Expression("CONCAT(dev_asunto, ' ', dev_descripcion, ' ', dev_fecha_creacion)"), $text]);
+        }
+        $total = $total->count();
+        return $total;
+    }
+
+    public function actionBuscar($text = "")
+    {
+        $consulta = Devolucion::find()->where(['like', new \yii\db\Expression("CONCAT(dev_asunto, ' ', dev_descripcion, ' ', dev_fecha_creacion)"), $text]);
+
+        $devolucions = new ActiveDataProvider([
+            'query' => $consulta,
+            'pagination' => [
+                'pageSize' => 20 // Número de resultados por página
+            ],
+        ]);
+        return $devolucions->getModels();
+    }
+
 }

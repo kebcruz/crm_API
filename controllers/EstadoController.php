@@ -1,8 +1,11 @@
 <?php
+
 namespace app\controllers;
 
 use yii\filters\Cors;
+use app\models\Estado;
 use yii\rest\ActiveController;
+use yii\data\ActiveDataProvider;
 use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpBearerAuth;
 
@@ -19,7 +22,7 @@ class EstadoController extends ActiveController
         $behaviors['corsFilter'] = [
             'class' => \yii\filters\Cors::className(),
             'cors' => [
-                'Origin'                           => ['http://localhost:8100','http://localhost:8101'],
+                'Origin'                           => ['http://localhost:8100', 'http://localhost:8101'],
                 'Access-Control-Request-Method'    => ['GET', 'POST', 'PUT', 'DELETE'],
                 'Access-Control-Request-Headers'   => ['*'],
                 'Access-Control-Allow-Credentials' => true,
@@ -32,9 +35,34 @@ class EstadoController extends ActiveController
             'authMethods' => [
                 HttpBearerAuth::className(),
             ],
-            'except' => ['index', 'view']
+            'except' => ['index', 'view', 'total', 'buscar']
         ];
 
         return $behaviors;
     }
+    
+    public function actionTotal($text = "")
+    {
+        $total = Estado::find();
+        if ($text != '') {
+            /* like sirve para buscar texto, con lo cual texto buscara en los tres primeros campos */
+            $total = $total->where(['like', new \yii\db\Expression("CONCAT(estd_nombre)"), $text]);
+        }
+        $total = $total->count();
+        return $total;
+    }
+
+    public function actionBuscar($text = "")
+    {
+        $consulta = Estado::find()->where(['like', new \yii\db\Expression("CONCAT(estd_nombre)"), $text]);
+
+        $estados = new ActiveDataProvider([
+            'query' => $consulta,
+            'pagination' => [
+                'pageSize' => 20 // Número de resultados por página
+            ],
+        ]);
+        return $estados->getModels();
+    }
+
 }

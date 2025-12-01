@@ -83,4 +83,16 @@ class Devolucion extends \yii\db\ActiveRecord
         return $this->hasOne(VentaDetalle::class, ['ved_id' => 'dev_fkved_id']);
     }
 
+    public function extraFields()
+    {
+        return[
+            "detalleVenta" =>function(){
+                return $this->devFkved->ved_cantidad;
+            },
+            "estatusVenta" =>function(){
+                return $this->devFkest->est_nombre;
+            },
+        ];
+    }
+
 }

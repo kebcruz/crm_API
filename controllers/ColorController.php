@@ -1,8 +1,10 @@
 <?php
 namespace app\controllers;
 
+use app\models\Color;
 use yii\filters\Cors;
 use yii\rest\ActiveController;
+use yii\data\ActiveDataProvider;
 use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpBearerAuth;
 
@@ -36,4 +38,29 @@ class ColorController extends ActiveController
 
         return $behaviors;
     }
+
+    public function actionTotal($text = "")
+    {
+        $total = Color::find();
+        if ($text != '') {
+            /* like sirve para buscar texto, con lo cual texto buscara en los tres primeros campos */
+            $total = $total->where(['like', new \yii\db\Expression("CONCAT(col_nombre)"), $text]);
+        }
+        $total = $total->count();
+        return $total;
+    }
+
+    public function actionBuscar($text = "")
+    {
+        $consulta = Color::find()->where(['like', new \yii\db\Expression("CONCAT(col_nombre)"), $text]);
+
+        $colores = new ActiveDataProvider([
+            'query' => $consulta,
+            'pagination' => [
+                'pageSize' => 20 // Número de resultados por página
+            ],
+        ]);
+        return $colores->getModels();
+    }
+    
 }
