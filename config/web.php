@@ -143,7 +143,20 @@ $config = [
                     ],
                 ],
 
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'puesto'],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'puestos/buscar/<text:.*>', 'route' => 'puesto/buscar'],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'puestos/total/<text:.*>', 'route' => 'puesto/total'],
+                [
+                    'class'      => 'yii\rest\UrlRule',
+                    'controller' => 'puesto',
+                    'tokens' => [
+                        '{id}'   => '<id:\\d[\\d,]*>',
+                        '{text}' => '<text:\\w+>'
+                    ],
+                    'extraPatterns' => [
+                        'GET buscar/{text}' => 'buscar',
+                        'GET total/{text}'  => 'total',
+                    ],
+                ],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'pais'],
                 
                 ['class' => 'yii\web\UrlRule', 'pattern' => 'estados/buscar/<text:.*>', 'route' => 'estado/buscar'],
@@ -254,7 +267,21 @@ $config = [
                 ],
 
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'estatu'],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'etiqueta'],
+
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'etiquetas/buscar/<text:.*>', 'route' => 'etiqueta/buscar'],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'etiquetas/total/<text:.*>', 'route' => 'etiqueta/total'],
+                [
+                    'class'      => 'yii\rest\UrlRule',
+                    'controller' => 'etiqueta',
+                    'tokens' => [
+                        '{id}'   => '<id:\\d[\\d,]*>',
+                        '{text}' => '<text:\\w+>'
+                    ],
+                    'extraPatterns' => [
+                        'GET buscar/{text}' => 'buscar',
+                        'GET total/{text}'  => 'total',
+                    ],
+                ],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'metodo'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'municipio'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'pago'],

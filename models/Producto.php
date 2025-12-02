@@ -159,8 +159,8 @@ class Producto extends \yii\db\ActiveRecord
     public function extraFields()
     {
         return[
-            "archivoRuta" =>function(){
-                return $this->proFkarc->arc_ruta;
+            "archivo" =>function(){
+                return $this->proFkarc;
             },
             "categoriaNombre" =>function(){
                 return $this->proFkcat->cat_nombre;
