@@ -41,22 +41,22 @@ class ProveedorController extends ActiveController
     public function actionTotal($text="") {
         $total = Proveedor::find();
         if($text != '') {
-            $total = $total->where(['like', new \yii\db\Expression("CONCAT(pro_nombre)"), $text]);
+            $total = $total->where(['like', new \yii\db\Expression("CONCAT(prov_nombre)"), $text]);
         }
         $total = $total->count();
         return $total;
     }
     public function actionBuscar($text="")
     {
-        $consulta = Proveedor::find()->where(['like', new \yii\db\Expression("CONCAT(pro_nombre)"), $text]);
+        $consulta = Proveedor::find()->where(['like', new \yii\db\Expression("CONCAT(prov_nombre)"), $text]);
 
-        $productos = new ActiveDataProvider([
+        $proveedors = new ActiveDataProvider([
             'query' => $consulta,
             'pagination' => [
                 'pageSize' => 20 // Número de resultados por página
             ],
         ]);
 
-        return $productos->getModels();
+        return $proveedors->getModels();
     }
 }
