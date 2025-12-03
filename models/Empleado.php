@@ -123,8 +123,8 @@ class Empleado extends \yii\db\ActiveRecord
     public function extraFields()
     {
         return[
-            "archivoRuta" =>function(){
-                return $this->empFkarc->arc_ruta;
+            "archivo" =>function(){
+                return $this->empFkarc;
             },
             "domicilioNombre" =>function(){
                 return $this->empFkdom->dom_calle;
