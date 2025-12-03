@@ -134,6 +134,13 @@ class Empleado extends \yii\db\ActiveRecord
                 ? $this->empFkdom->domFkmun->mun_nombre
                 :null;
             },
+            "estadoNombre" => function () {
+                return $this->empFkdom
+                    && $this->empFkdom->domFkmun
+                    && $this->empFkdom->domFkmun->munFkestd
+                    ? $this->empFkdom->domFkmun->munFkestd->estd_nombre
+                    : null;
+            },
             "puestoNombre" =>function(){
                 return $this->empFkpuesto->pue_nombre;
             }
