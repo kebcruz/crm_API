@@ -157,7 +157,21 @@ $config = [
                         'GET total/{text}'  => 'total',
                     ],
                 ],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'pais'],
+
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'paises/buscar/<text:.*>', 'route' => 'pais/buscar'],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'paises/total/<text:.*>', 'route' => 'pais/total'],
+                [
+                    'class'      => 'yii\rest\UrlRule',
+                    'controller' => 'pais',
+                    'tokens' => [
+                        '{id}'   => '<id:\\d[\\d,]*>',
+                        '{text}' => '<text:\\w+>'
+                    ],
+                    'extraPatterns' => [
+                        'GET buscar/{text}' => 'buscar',
+                        'GET total/{text}'  => 'total',
+                    ],
+                ],
                 
                 ['class' => 'yii\web\UrlRule', 'pattern' => 'estados/buscar/<text:.*>', 'route' => 'estado/buscar'],
                 ['class' => 'yii\web\UrlRule', 'pattern' => 'estados/total/<text:.*>', 'route' => 'estado/total'],
@@ -266,7 +280,20 @@ $config = [
                     ],
                 ],
 
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'estatu'],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'estatus/buscar/<text:.*>', 'route' => 'estatu/buscar'],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'estatus/total/<text:.*>', 'route' => 'estatu/total'],
+                [
+                    'class'      => 'yii\rest\UrlRule',
+                    'controller' => 'estatu',
+                    'tokens' => [
+                        '{id}'   => '<id:\\d[\\d,]*>',
+                        '{text}' => '<text:\\w+>'
+                    ],
+                    'extraPatterns' => [
+                        'GET buscar/{text}' => 'buscar',
+                        'GET total/{text}'  => 'total',
+                    ],
+                ],
 
                 ['class' => 'yii\web\UrlRule', 'pattern' => 'etiquetas/buscar/<text:.*>', 'route' => 'etiqueta/buscar'],
                 ['class' => 'yii\web\UrlRule', 'pattern' => 'etiquetas/total/<text:.*>', 'route' => 'etiqueta/total'],
@@ -282,12 +309,77 @@ $config = [
                         'GET total/{text}'  => 'total',
                     ],
                 ],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'metodo'],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'municipio'],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'pago'],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'venta-detalle'],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'metodos/buscar/<text:.*>', 'route' => 'metodo/buscar'],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'metodos/total/<text:.*>', 'route' => 'metodo/total'],
+                [
+                    'class'      => 'yii\rest\UrlRule',
+                    'controller' => 'metodo',
+                    'tokens' => [
+                        '{id}'   => '<id:\\d[\\d,]*>',
+                        '{text}' => '<text:\\w+>'
+                    ],
+                    'extraPatterns' => [
+                        'GET buscar/{text}' => 'buscar',
+                        'GET total/{text}'  => 'total',
+                    ],
+                ],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'municipios/buscar/<text:.*>', 'route' => 'municipio/buscar'],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'municipios/total/<text:.*>', 'route' => 'municipio/total'],
+                [
+                    'class'      => 'yii\rest\UrlRule',
+                    'controller' => 'municipio',
+                    'tokens' => [
+                        '{id}'   => '<id:\\d[\\d,]*>',
+                        '{text}' => '<text:\\w+>'
+                    ],
+                    'extraPatterns' => [
+                        'GET buscar/{text}' => 'buscar',
+                        'GET total/{text}'  => 'total',
+                    ],
+                ],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'pagos/buscar/<text:.*>', 'route' => 'pago/buscar'],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'pagos/total/<text:.*>', 'route' => 'pago/total'],
+                [
+                    'class'      => 'yii\rest\UrlRule',
+                    'controller' => 'pago',
+                    'tokens' => [
+                        '{id}'   => '<id:\\d[\\d,]*>',
+                        '{text}' => '<text:\\w+>'
+                    ],
+                    'extraPatterns' => [
+                        'GET buscar/{text}' => 'buscar',
+                        'GET total/{text}'  => 'total',
+                    ],
+                ],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'venta-detalles/buscar/<text:.*>', 'route' => 'venta-detalle/buscar'],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'venta-detalles/total/<text:.*>', 'route' => 'venta-detalle/total'],
+                [
+                    'class'      => 'yii\rest\UrlRule',
+                    'controller' => 'venta-detalle',
+                    'tokens' => [
+                        '{id}'   => '<id:\\d[\\d,]*>',
+                        '{text}' => '<text:\\w+>'
+                    ],
+                    'extraPatterns' => [
+                        'GET buscar/{text}' => 'buscar',
+                        'GET total/{text}'  => 'total',
+                    ],
+                ],
 
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'producto-etiqueta'],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'producto-etiquetas/buscar/<text:.*>', 'route' => 'producto-etiqueta/buscar'],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'producto-etiquetas/total/<text:.*>', 'route' => 'producto-etiqueta/total'],
+                [
+                    'class'      => 'yii\rest\UrlRule',
+                    'controller' => 'producto-etiqueta',
+                    'tokens' => [
+                        '{id}'   => '<id:\\d[\\d,]*>',
+                        '{text}' => '<text:\\w+>'
+                    ],
+                    'extraPatterns' => [
+                        'GET buscar/{text}' => 'buscar',
+                        'GET total/{text}'  => 'total',
+                    ],
+                ],
             ],
         ],
 

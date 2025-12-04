@@ -3,6 +3,8 @@ namespace app\controllers;
 
 use yii\filters\Cors;
 use yii\rest\ActiveController;
+use app\models\ProductoEtiqueta;
+use yii\data\ActiveDataProvider;
 use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpBearerAuth;
 
@@ -31,9 +33,30 @@ class ProductoEtiquetaController extends ActiveController
             'authMethods' => [
                 HttpBearerAuth::className(),
             ],
-            'except' => ['index', 'view']
+            'except' => ['index', 'view', 'total', 'buscar']
         ];
 
         return $behaviors;
+    }
+    public function actionTotal($text="") {
+        $total = ProductoEtiqueta::find();
+        if($text != '') {
+            $total = $total->where(['like', new \yii\db\Expression("CONCAT(pret_id)"), $text]);
+        }
+        $total = $total->count();
+        return $total;
+    }
+    public function actionBuscar($text="")
+    {
+        $consulta = ProductoEtiqueta::find()->where(['like', new \yii\db\Expression("CONCAT(pret_id)"), $text]);
+
+        $productoe = new ActiveDataProvider([
+            'query' => $consulta,
+            'pagination' => [
+                'pageSize' => 20 // Número de resultados por página
+            ],
+        ]);
+
+        return $productoe->getModels();
     }
 }

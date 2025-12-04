@@ -1,8 +1,10 @@
 <?php
 namespace app\controllers;
 
+use app\models\Pais;
 use yii\filters\Cors;
 use yii\rest\ActiveController;
+use yii\data\ActiveDataProvider;
 use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpBearerAuth;
 
@@ -31,9 +33,30 @@ class PaisController extends ActiveController
             'authMethods' => [
                 HttpBearerAuth::className(),
             ],
-            'except' => ['index', 'view']
+            'except' => ['index', 'view', 'total', 'buscar']
         ];
 
         return $behaviors;
+    }
+    public function actionTotal($text="") {
+        $total = Pais::find();
+        if($text != '') {
+            $total = $total->where(['like', new \yii\db\Expression("CONCAT(pai_nombre)"), $text]);
+        }
+        $total = $total->count();
+        return $total;
+    }
+    public function actionBuscar($text="")
+    {
+        $consulta = Pais::find()->where(['like', new \yii\db\Expression("CONCAT(pai_nombre)"), $text]);
+
+        $paises = new ActiveDataProvider([
+            'query' => $consulta,
+            'pagination' => [
+                'pageSize' => 20 // Número de resultados por página
+            ],
+        ]);
+
+        return $paises->getModels();
     }
 }
