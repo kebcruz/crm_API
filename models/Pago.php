@@ -78,4 +78,13 @@ class Pago extends \yii\db\ActiveRecord
         return $this->hasMany(Venta::class, ['ven_fkpag_id' => 'pag_id']);
     }
 
+    public function extraFields()
+    {
+        return[
+            "metodoNombre" =>function(){
+                return $this->pagFkmet->met_nombre;
+            }
+        ];
+    }
+
 }
